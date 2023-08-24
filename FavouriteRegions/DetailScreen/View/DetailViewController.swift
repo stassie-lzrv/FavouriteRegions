@@ -13,6 +13,7 @@ class DetailViewController: UIViewController {
     
     private let contentView = UIView()
     private let collectionView = GalleryCollectionView()
+    private let infoView = InfoView()
     
     private let viewModel : DetailViewModel
     
@@ -49,6 +50,7 @@ private extension DetailViewController {
         view.backgroundColor = .white
         setupBackground()
         setupBackButton()
+        setupInfoView()
         setupCollectionView()
         setupConstraints()
         
@@ -75,7 +77,10 @@ private extension DetailViewController {
     func setupCollectionView(){
         view.addSubview(collectionView)
         collectionView.configure(with: viewModel.region.thumbUrls)
-        
+    }
+    
+    func setupInfoView(){
+        view.addSubview(infoView)
     }
     
     func setupConstraints() {
@@ -88,12 +93,17 @@ private extension DetailViewController {
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
             collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
-            collectionView.heightAnchor.constraint(equalToConstant: 300)
+            collectionView.heightAnchor.constraint(equalToConstant: 300),
             
+            infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            infoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
+            infoView.heightAnchor.constraint(equalToConstant: 50)
         ])
     }
     
     func configure(){
+        infoView.configure(with: viewModel.region)
     }
 }
 
