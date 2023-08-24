@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		813EB5A32A96A27D006BEEFD /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB5A22A96A27D006BEEFD /* Region.swift */; };
+		813EB5A52A96A8CC006BEEFD /* HomeViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB5A42A96A8CC006BEEFD /* HomeViewModel.swift */; };
+		813EB5A72A96AECA006BEEFD /* RegionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB5A62A96AECA006BEEFD /* RegionCell.swift */; };
+		813EB5A92A976BA2006BEEFD /* RegionCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 813EB5A82A976BA2006BEEFD /* RegionCellView.swift */; };
 		81A3D3ED2A969AAE001E6C17 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A3D3EC2A969AAE001E6C17 /* AppDelegate.swift */; };
 		81A3D3EF2A969AAE001E6C17 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A3D3EE2A969AAE001E6C17 /* SceneDelegate.swift */; };
 		81A3D3F12A969AAE001E6C17 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81A3D3F02A969AAE001E6C17 /* HomeViewController.swift */; };
@@ -15,6 +19,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		813EB5A22A96A27D006BEEFD /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
+		813EB5A42A96A8CC006BEEFD /* HomeViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewModel.swift; sourceTree = "<group>"; };
+		813EB5A62A96AECA006BEEFD /* RegionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCell.swift; sourceTree = "<group>"; };
+		813EB5A82A976BA2006BEEFD /* RegionCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegionCellView.swift; sourceTree = "<group>"; };
 		81A3D3E92A969AAE001E6C17 /* FavouriteRegions.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FavouriteRegions.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81A3D3EC2A969AAE001E6C17 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		81A3D3EE2A969AAE001E6C17 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,6 +43,32 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		813EB59F2A96A24D006BEEFD /* View */ = {
+			isa = PBXGroup;
+			children = (
+				81A3D3F02A969AAE001E6C17 /* HomeViewController.swift */,
+				813EB5A62A96AECA006BEEFD /* RegionCell.swift */,
+				813EB5A82A976BA2006BEEFD /* RegionCellView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		813EB5A02A96A255006BEEFD /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				813EB5A22A96A27D006BEEFD /* Region.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		813EB5A12A96A25B006BEEFD /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				813EB5A42A96A8CC006BEEFD /* HomeViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 		81A3D3E02A969AAE001E6C17 = {
 			isa = PBXGroup;
 			children = (
@@ -54,9 +88,11 @@
 		81A3D3EB2A969AAE001E6C17 /* FavouriteRegions */ = {
 			isa = PBXGroup;
 			children = (
+				813EB59F2A96A24D006BEEFD /* View */,
+				813EB5A12A96A25B006BEEFD /* ViewModel */,
+				813EB5A02A96A255006BEEFD /* Model */,
 				81A3D3EC2A969AAE001E6C17 /* AppDelegate.swift */,
 				81A3D3EE2A969AAE001E6C17 /* SceneDelegate.swift */,
-				81A3D3F02A969AAE001E6C17 /* HomeViewController.swift */,
 				81A3D3F52A969AB3001E6C17 /* Assets.xcassets */,
 				81A3D3F72A969AB3001E6C17 /* LaunchScreen.storyboard */,
 				81A3D3FA2A969AB3001E6C17 /* Info.plist */,
@@ -134,9 +170,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				813EB5A92A976BA2006BEEFD /* RegionCellView.swift in Sources */,
 				81A3D3F12A969AAE001E6C17 /* HomeViewController.swift in Sources */,
 				81A3D3ED2A969AAE001E6C17 /* AppDelegate.swift in Sources */,
 				81A3D3EF2A969AAE001E6C17 /* SceneDelegate.swift in Sources */,
+				813EB5A72A96AECA006BEEFD /* RegionCell.swift in Sources */,
+				813EB5A52A96A8CC006BEEFD /* HomeViewModel.swift in Sources */,
+				813EB5A32A96A27D006BEEFD /* Region.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
