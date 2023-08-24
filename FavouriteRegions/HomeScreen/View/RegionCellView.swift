@@ -23,17 +23,12 @@ class RegionCellView : UIView {
         label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
-//        label.backgroundColor = UIColor(cgColor: CGColor(red: 1, green: 1, blue: 1, alpha: 0.8))
-//        label.layer.cornerRadius = 4
-//        label.layer.masksToBounds = true
         return label
     }()
     
     func configure(with model: Region){
         label.text = model.title
         guard let url = URL(string: model.thumbUrls[0]) else { return }
-        
-        imageView.kf.indicatorType = .activity
         imageView.kf.setImage(
             with: url
         )

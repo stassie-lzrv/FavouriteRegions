@@ -10,7 +10,7 @@ import Foundation
 class HomeViewModel {
     
     @Observable var regions: [Region] = []
-    @Observable var isLoading: Bool = false
+    @Observable var isLoading: Bool = true
     private var networkService: NetworkProtocol = NetworkService()
     
     func numberOfSections() -> Int {
@@ -32,11 +32,11 @@ class HomeViewModel {
                             self.isLoading = false
                             completion((regions))
                         } catch {
-                            self.isLoading = false
+                            self.isLoading = true
                             completion((self.regions))
                         }
                     case .failure(_):
-                        self.isLoading = false
+                        self.isLoading = true
                         completion((self.regions))
                     }
                 }

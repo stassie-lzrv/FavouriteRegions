@@ -12,12 +12,32 @@ class HomeViewController: UIViewController {
     private let viewModel = HomeViewModel()
     private var tableView = UITableView()
     
+    private let activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .large)
+        indicator.hidesWhenStopped = true
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        return indicator
+    }()
+    
     // MARK: UI overriding
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        bindViewModel()
         fetchData()
+    }
+    
+    func bindViewModel(){
+        viewModel.$isLoading.bind { [weak self] isLoading in
+            DispatchQueue.main.async {
+                if isLoading {
+                    self?.activityIndicator.startAnimating()
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                }
+            }
+        }
     }
     
 }
@@ -34,6 +54,7 @@ private extension HomeViewController {
     
     func setupTableView() {
         view.addSubview(tableView)
+        tableView.addSubview(activityIndicator)
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RegionCell.self, forCellReuseIdentifier: RegionCell.identifier)
@@ -48,6 +69,9 @@ private extension HomeViewController {
             tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
             tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor,constant: 0),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor,constant: 0),
         ])
     }
     
