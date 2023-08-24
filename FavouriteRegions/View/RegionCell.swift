@@ -13,10 +13,14 @@ class RegionCell: UITableViewCell {
     
     private let regionCellView = RegionCellView()
     
-    func configure(with model: Region){
+    private let likeButton = LikeButton()
+    
+    func configure(with model: Region, indexPath : IndexPath){
         backgroundColor = .clear
         contentView.addSubview(regionCellView)
+        contentView.addSubview(likeButton)
         regionCellView.configure(with: model)
+        likeButton.tag = indexPath.section
         setupConstraints()
     }
     
@@ -25,7 +29,12 @@ class RegionCell: UITableViewCell {
             regionCellView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             regionCellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
             regionCellView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            regionCellView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0)
+            regionCellView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            
+            likeButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
+            likeButton.widthAnchor.constraint(equalToConstant: 40),
+            likeButton.heightAnchor.constraint(equalToConstant: 30)
         ])
     }
 }

@@ -74,7 +74,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.identifier, for: indexPath) as? RegionCell else { return UITableViewCell() }
-        cell.configure(with:  Region.mockData[indexPath.section])
+        cell.configure(with:  Region.mockData[indexPath.section], indexPath: indexPath)
         cell.selectionStyle = .none
         return cell
     }
