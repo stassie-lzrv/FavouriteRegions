@@ -28,18 +28,6 @@ class HomeViewController: UIViewController {
         fetchData()
     }
     
-    func bindViewModel(){
-        viewModel.$isLoading.bind { [weak self] isLoading in
-            DispatchQueue.main.async {
-                if isLoading {
-                    self?.activityIndicator.startAnimating()
-                } else {
-                    self?.activityIndicator.stopAnimating()
-                }
-            }
-        }
-    }
-    
 }
 
 // MARK: Setup views
@@ -75,6 +63,12 @@ private extension HomeViewController {
         ])
     }
     
+}
+
+// MARK: Private extensions
+
+private extension HomeViewController{
+    
     private func fetchData(){
         viewModel.fetchRegions { [weak self] regions in
             guard let self = self else { return }
@@ -93,7 +87,24 @@ private extension HomeViewController {
                 self.tableView.reloadData()
             }
         }
-
+    }
+    
+    private func bindViewModel(){
+        viewModel.$isLoading.bind { [weak self] isLoading in
+            DispatchQueue.main.async {
+                if isLoading {
+                    self?.activityIndicator.startAnimating()
+                } else {
+                    self?.activityIndicator.stopAnimating()
+                }
+            }
+        }
+    }
+    
+    private func openDetailViewController(_ region: Region){
+        let detailVC = DetailViewController(viewModel: DetailViewModel(region: region))
+        detailVC.modalPresentationStyle = .pageSheet
+        self.present(detailVC, animated: true)
     }
 }
 
@@ -123,6 +134,12 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(with:  viewModel.regions[indexPath.section], indexPath: indexPath)
         cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let region = viewModel.regions[indexPath.section]
+ 
+        openDetailViewController(region)
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
