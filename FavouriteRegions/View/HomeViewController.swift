@@ -17,7 +17,9 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        fetchData()
     }
+    
 }
 
 // MARK: Setup views
@@ -49,6 +51,26 @@ private extension HomeViewController {
         ])
     }
     
+    private func fetchData(){
+        viewModel.fetchRegions { [weak self] regions in
+            guard let self = self else { return }
+            if regions.isEmpty {
+                let alert = UIAlertController(
+                    title: "Ошибка загрузки данных",
+                    message: "Повторите попытку",
+                    preferredStyle: .alert
+                )
+                let repeatAction = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self.fetchData()})
+                let cancelAction = UIAlertAction(title: "Отменить", style: .cancel)
+                alert.addAction(repeatAction)
+                alert.addAction(cancelAction)
+                self.present(alert, animated: true)
+            } else {
+                self.tableView.reloadData()
+            }
+        }
+
+    }
 }
 
 // MARK: TableView extensions
@@ -74,7 +96,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.identifier, for: indexPath) as? RegionCell else { return UITableViewCell() }
-        cell.configure(with:  Region.mockData[indexPath.section], indexPath: indexPath)
+        cell.configure(with:  viewModel.regions[indexPath.section], indexPath: indexPath)
         cell.selectionStyle = .none
         return cell
     }

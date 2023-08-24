@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Kingfisher
 
 class RegionCellView : UIView {
     private let imageView : UIImageView = {
@@ -19,15 +20,24 @@ class RegionCellView : UIView {
     
     private let label : UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .semibold)
+        label.font = .systemFont(ofSize: 15, weight: .bold)
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
+//        label.backgroundColor = UIColor(cgColor: CGColor(red: 1, green: 1, blue: 1, alpha: 0.8))
+//        label.layer.cornerRadius = 4
+//        label.layer.masksToBounds = true
         return label
     }()
     
     func configure(with model: Region){
         label.text = model.title
-        imageView.image = UIImage(named: "mock_preview")
+        guard let url = URL(string: model.thumbUrls[0]) else { return }
+        
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(
+            with: url
+        )
+        
     }
     
     override init(frame: CGRect) {
