@@ -36,6 +36,10 @@ private extension HomeViewController {
     
     func setupView() {
         view.backgroundColor = .white
+        title = "Любимые регионы"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationItem.largeTitleDisplayMode = .always
+        
         setupTableView()
         setupConstraints()
     }
@@ -103,8 +107,7 @@ private extension HomeViewController{
     
     private func openDetailViewController(_ region: Region){
         let detailVC = DetailViewController(viewModel: DetailViewModel(region: region))
-        detailVC.modalPresentationStyle = .pageSheet
-        self.present(detailVC, animated: true)
+        self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
 
@@ -122,7 +125,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 0
     }
-
+    
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView = UIView()
         headerView.backgroundColor = view.backgroundColor
@@ -138,7 +141,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let region = viewModel.regions[indexPath.section]
- 
+        
         openDetailViewController(region)
     }
     

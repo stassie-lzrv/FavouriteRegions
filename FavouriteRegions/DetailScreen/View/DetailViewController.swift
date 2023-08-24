@@ -10,7 +10,7 @@ import UIKit
 import Kingfisher
 
 class DetailViewController: UIViewController {
-
+    
     private let contentView = UIView()
     private let collectionView = GalleryCollectionView()
     
@@ -21,6 +21,7 @@ class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        configure()
         bindViewModel()
     }
     
@@ -47,10 +48,23 @@ private extension DetailViewController {
     func setupView() {
         view.backgroundColor = .white
         setupBackground()
+        setupBackButton()
         setupCollectionView()
         setupConstraints()
+        
     }
     
+    func setupBackButton(){
+        let backButton = UIBarButtonItem(
+            image: UIImage(systemName: "arrowshape.turn.up.backward"),
+            style: .done,
+            target: self,
+            action: #selector(goBack)
+        )
+        backButton.tintColor = .black
+        navigationItem.leftBarButtonItem = backButton
+        
+    }
     func setupBackground(){
         view.addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -73,9 +87,20 @@ private extension DetailViewController {
             
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 60),
+            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
             collectionView.heightAnchor.constraint(equalToConstant: 300)
             
         ])
+    }
+    
+    func configure(){
+    }
+}
+
+private extension DetailViewController {
+    
+    @objc
+    private func goBack() {
+        navigationController?.popViewController(animated: true)
     }
 }
