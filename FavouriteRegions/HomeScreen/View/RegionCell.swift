@@ -10,7 +10,6 @@ import UIKit
 
 class RegionCell: UITableViewCell {
     
-    static let identifier = "regionCell"
     
     private let regionCellView = RegionCellView()
     
@@ -30,15 +29,15 @@ class RegionCell: UITableViewCell {
     private func setupConstraints(){
         guard let likeButton = likeButton else {return}
         NSLayoutConstraint.activate([
-            regionCellView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            regionCellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            regionCellView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            regionCellView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            regionCellView.topAnchor.constraint(equalTo: topAnchor),
+            regionCellView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            regionCellView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            regionCellView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            likeButton.topAnchor.constraint(equalTo: topAnchor, constant: 10),
-            likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -10),
-            likeButton.widthAnchor.constraint(equalToConstant: 40),
-            likeButton.heightAnchor.constraint(equalToConstant: 30)
+            likeButton.topAnchor.constraint(equalTo: topAnchor, constant: Static.Layout.sidePadding),
+            likeButton.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -Static.Layout.sidePadding),
+            likeButton.widthAnchor.constraint(equalToConstant: Static.Layout.likeButtonWidth),
+            likeButton.heightAnchor.constraint(equalToConstant: Static.Layout.likeButtonHeiht)
         ])
     }
 }

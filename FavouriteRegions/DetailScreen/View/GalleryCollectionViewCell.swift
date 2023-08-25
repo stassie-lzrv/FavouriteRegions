@@ -11,8 +11,6 @@ import Kingfisher
 
 class GalleryCollectionViewCell: UICollectionViewCell {
     
-    static let identifier = "GalleryCollectionViewCell"
-    
     let image: UIImageView = {
        let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -23,7 +21,7 @@ class GalleryCollectionViewCell: UICollectionViewCell {
     }()
 
 
-    func configure(with urlString: String){
+    func configure(with urlString: String) {
         guard let url = URL(string: urlString) else { return }
         image.kf.setImage(
             with: url
@@ -34,14 +32,13 @@ class GalleryCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         addSubview(image)
         setupConstraints()
-        
     }
      
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             image.leadingAnchor.constraint(equalTo: leadingAnchor),
             image.trailingAnchor.constraint(equalTo: trailingAnchor),
-            image.topAnchor.constraint(equalTo: topAnchor, constant: 0),
+            image.topAnchor.constraint(equalTo: topAnchor),
             image.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 1)
         ])
     }

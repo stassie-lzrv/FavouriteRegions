@@ -20,7 +20,7 @@ class RegionCellView : UIView {
     
     private let label : UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 15, weight: .bold)
+        label.font = Static.Font.cellFont
         label.textColor = .white
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -49,13 +49,13 @@ class RegionCellView : UIView {
     
     private func setupConstraints(){
         NSLayoutConstraint.activate([
-            imageView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
-            imageView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),
-            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
-            imageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            imageView.topAnchor.constraint(equalTo: topAnchor),
+            imageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            imageView.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10),
-            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 10)
+            label.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -Static.Layout.sidePadding),
+            label.leadingAnchor.constraint(equalTo: leadingAnchor, constant: Static.Layout.sidePadding)
         ])
     }
     

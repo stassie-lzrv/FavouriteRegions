@@ -16,7 +16,7 @@ class LikeButton: UIButton {
         self.region = region
         super.init(frame: .zero)
         let config = UIImage.SymbolConfiguration(textStyle: .title2)
-        let likeImage = UIImage(systemName: "suit.heart.fill", withConfiguration: config)
+        let likeImage = UIImage(systemName: Static.Image.heartImageName, withConfiguration: config)
         setImage(likeImage, for: .normal)
         contentMode = .scaleAspectFill
         tintColor = (region.isFavourite ? .redColor : .supportGrayColor)

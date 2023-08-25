@@ -9,7 +9,7 @@ import UIKit
 
 class HomeViewController: UIViewController {
     
-    private let viewModel = HomeViewModel()
+    private let viewModel : HomeViewModel
     private var tableView = UITableView()
     
     private let activityIndicator: UIActivityIndicatorView = {
@@ -19,13 +19,21 @@ class HomeViewController: UIViewController {
         return indicator
     }()
     
+    // MARK: - LifeCycle
+    init(_ viewModel: HomeViewModel = HomeViewModel()) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     // MARK: UI overriding
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         bindViewModel()
-        fetchData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +49,7 @@ private extension HomeViewController {
     
     func setupView() {
         view.backgroundColor = .backPrimaryColor
-        title = "Любимые регионы"
+        title = Static.String.mainTittle
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
         setupTableView()
@@ -54,7 +62,7 @@ private extension HomeViewController {
         tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
-        tableView.register(RegionCell.self, forCellReuseIdentifier: RegionCell.identifier)
+        tableView.register(RegionCell.self, forCellReuseIdentifier: Static.String.mainCellIdentifier)
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.showsVerticalScrollIndicator = false
@@ -62,13 +70,13 @@ private extension HomeViewController {
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
-            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -10),
+            tableView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Static.Layout.sidePadding),
+            tableView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Static.Layout.sidePadding),
+            tableView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: Static.Layout.sidePadding),
+            tableView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -Static.Layout.sidePadding),
             
-            activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor,constant: 0),
-            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor,constant: 0),
+            activityIndicator.centerXAnchor.constraint(equalTo: tableView.centerXAnchor),
+            activityIndicator.centerYAnchor.constraint(equalTo: tableView.centerYAnchor)
         ])
     }
     
@@ -78,39 +86,30 @@ private extension HomeViewController {
 
 private extension HomeViewController{
     
-    private func fetchData(){
-        viewModel.fetchRegions { [weak self] regions in
-            guard let self = self else { return }
-            if regions.isEmpty {
-                let alert = UIAlertController(
-                    title: "Ошибка загрузки данных",
-                    message: "Повторите попытку",
-                    preferredStyle: .alert
-                )
-                let repeatAction = UIAlertAction(title: "Повторить", style: .default, handler: { _ in self.fetchData()})
-                let cancelAction = UIAlertAction(title: "Отменить", style: .cancel)
-                alert.addAction(repeatAction)
-                alert.addAction(cancelAction)
-                self.present(alert, animated: true)
-            } else {
-                self.tableView.reloadData()
-            }
-        }
-    }
     
-    private func bindViewModel(){
+    private func bindViewModel() {
         viewModel.$isLoading.bind { [weak self] isLoading in
             DispatchQueue.main.async {
                 if isLoading {
                     self?.activityIndicator.startAnimating()
                 } else {
                     self?.activityIndicator.stopAnimating()
+                    self?.tableView.reloadData()
                 }
+            }
+        }
+        
+        self.viewModel.onErrorMessage = { [weak self] error in
+            guard let self = self else { return }
+            DispatchQueue.main.async {
+                self.showAlert(title: Static.String.errorAlertTittle, message: Static.String.errorAlertMesage, { _ in
+                    self.viewModel.fetchRegions()
+                })
             }
         }
     }
     
-    private func openDetailViewController(_ region: Region){
+    private func openDetailViewController(_ region: Region) {
         let detailVC = DetailViewController(viewModel: DetailViewModel(region: region))
         detailVC.delegate = self
         self.navigationController?.pushViewController(detailVC, animated: true)
@@ -139,7 +138,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.identifier, for: indexPath) as? RegionCell else { return UITableViewCell() }
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: Static.String.mainCellIdentifier, for: indexPath) as? RegionCell else { return UITableViewCell() }
         cell.configure(with:  viewModel.regions[indexPath.section], delegate: self)
         cell.selectionStyle = .none
         return cell
@@ -151,7 +150,7 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 200
+        return Static.Layout.mainCellSize
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
@@ -165,6 +164,8 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
 }
+
+// MARK: UpdateDelegate extension
 
 extension HomeViewController : UpdateDelegate{
     func didUpdateFavourite(_ region: Region) {

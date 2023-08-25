@@ -6,14 +6,13 @@
 //
 
 import Foundation
+
 struct Region {
     let brandId: String
     let title: String
     let thumbUrls: [String]
     let viewsCount: Int
-    var isFavourite: Bool = false 
-    
-    
+    var isFavourite: Bool = false
 }
 
 extension Region {

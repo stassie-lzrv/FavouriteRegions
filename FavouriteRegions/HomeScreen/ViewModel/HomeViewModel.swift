@@ -9,9 +9,19 @@ import Foundation
 
 class HomeViewModel {
     
-    @Observable var regions: [Region] = []
+    @Observable var regions: [Region] = [] {
+        didSet {
+            self.isLoading = false
+        }
+    }
+    
     @Observable var isLoading: Bool = true
+    var onErrorMessage: ((Error)->Void)?
     private var networkService: NetworkProtocol = NetworkService()
+    
+    init() {
+        self.fetchRegions()
+    }
     
     func numberOfSections() -> Int {
         return regions.count
@@ -23,30 +33,15 @@ class HomeViewModel {
         }
     }
     
-    func fetchRegions(_ completion: @escaping ([Region]) -> Void) {
+    func fetchRegions() {
         isLoading = true
-        _ = Task {
-            await networkService.getRegionsList( handler: { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let data):
-                        do{
-                            let json = try JSONDecoder().decode(RegionList.self, from: data)
-                            var regions = [Region]()
-                            json.brands.forEach { regions.append($0.convert()) }
-                            self.regions = regions
-                            self.isLoading = false
-                            completion((regions))
-                        } catch {
-                            self.isLoading = true
-                            completion((self.regions))
-                        }
-                    case .failure(_):
-                        self.isLoading = true
-                        completion((self.regions))
-                    }
-                }
-            })
+        networkService.fetch() { [weak self] result in
+            switch result {
+            case .success(let regions):
+                self?.regions = regions
+            case .failure(let error):
+                self?.onErrorMessage?(error)
+            }
         }
     }
 }

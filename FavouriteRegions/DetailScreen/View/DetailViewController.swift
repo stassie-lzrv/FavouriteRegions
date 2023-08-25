@@ -37,7 +37,7 @@ class DetailViewController: UIViewController {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func bindViewModel(){
+    func bindViewModel() {
         likeButton.delegate = delegate
     }
 }
@@ -55,7 +55,7 @@ private extension DetailViewController {
         setupConstraints()
     }
     
-    func setupBackButton(){
+    func setupBackButton() {
         let backButton = UIBarButtonItem(
             image: UIImage(systemName: "arrowshape.turn.up.backward"),
             style: .done,
@@ -66,40 +66,38 @@ private extension DetailViewController {
         navigationItem.leftBarButtonItem = backButton
     }
     
-    func setupCollectionView(){
+    func setupCollectionView() {
         view.addSubview(collectionView)
         collectionView.configure(with: viewModel.region.thumbUrls)
     }
     
-    func setupInfoView(){
+    func setupInfoView() {
         view.addSubview(infoView)
     }
     
-    func setupLikeButton(){
+    func setupLikeButton() {
         view.addSubview(likeButton)
         likeButton.backgroundColor = .clear
     }
     
     func setupConstraints() {
         NSLayoutConstraint.activate([
-            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
-            collectionView.heightAnchor.constraint(equalToConstant: 300),
+            collectionView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Static.Layout.sidePadding),
+            collectionView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Static.Layout.sidePadding),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            collectionView.heightAnchor.constraint(equalToConstant: Static.Layout.galleryHeight),
             
-            likeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
-            likeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -10),
-            likeButton.widthAnchor.constraint(equalToConstant: 40),
-            likeButton.heightAnchor.constraint(equalToConstant: 30),
+            likeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: Static.Layout.galleryBottomPadding),
+            likeButton.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -Static.Layout.sidePadding),
             
-            infoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 10),
-            infoView.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: -10),
-            infoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
-            infoView.heightAnchor.constraint(equalToConstant: 200)
+            infoView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: Static.Layout.sidePadding),
+            infoView.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: -Static.Layout.sidePadding),
+            infoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: Static.Layout.galleryBottomPadding),
+            infoView.heightAnchor.constraint(equalToConstant: Static.Layout.infoHeight)
         ])
     }
     
-    func configure(){
+    func configure() {
         infoView.configure(with: viewModel.region)
     }
 }

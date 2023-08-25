@@ -12,7 +12,7 @@ class GalleryCollectionView: UICollectionView {
     
     var imageURLs = [String]()
     
-    func configure(with images: [String]){
+    func configure(with images: [String]) {
         imageURLs = images
         layoutSubviews()
     }
@@ -21,14 +21,17 @@ class GalleryCollectionView: UICollectionView {
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
         super.init(frame: .zero, collectionViewLayout: layout)
+        layout.minimumLineSpacing = 12
+        translatesAutoresizingMaskIntoConstraints = false
+        setup()
+    }
+    
+    private func setup() {
         backgroundColor = .clear
         delegate = self
         dataSource = self
-        register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: GalleryCollectionViewCell.identifier)
-        
-        translatesAutoresizingMaskIntoConstraints = false
-        layout.minimumLineSpacing = 12
-        contentInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        register(GalleryCollectionViewCell.self, forCellWithReuseIdentifier: Static.String.detailCellIdentifier)
+        contentInset = UIEdgeInsets(top: 0, left: Static.Layout.sidePadding, bottom: 0, right: Static.Layout.sidePadding)
         showsHorizontalScrollIndicator = false
         showsVerticalScrollIndicator = false
     }
@@ -45,14 +48,14 @@ extension GalleryCollectionView : UICollectionViewDelegate, UICollectionViewData
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = dequeueReusableCell(withReuseIdentifier: GalleryCollectionViewCell.identifier, for: indexPath) as! GalleryCollectionViewCell
+        let cell = dequeueReusableCell(withReuseIdentifier: Static.String.detailCellIdentifier, for: indexPath) as! GalleryCollectionViewCell
         cell.configure(with: imageURLs[indexPath.row])
         return cell
     }
     
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 330, height: 250)
+        return Static.Layout.detaulCellSize
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

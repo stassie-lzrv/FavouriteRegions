@@ -12,7 +12,7 @@ class InfoView: UIView {
     
     private let title: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 26, weight: .bold)
+        label.font = Static.Font.titleInfoFont
         label.textColor = .labelPrimaryColor
         label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,7 +24,7 @@ class InfoView: UIView {
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         let config = UIImage.SymbolConfiguration(textStyle: .subheadline)
-        let eyeImage = UIImage(systemName: "eye", withConfiguration: config)
+        let eyeImage = UIImage(systemName: Static.Image.eyeImageName, withConfiguration: config)
         imageView.image = eyeImage
         imageView.tintColor = .supportGrayColor
         return imageView
@@ -32,13 +32,13 @@ class InfoView: UIView {
     
     private let viewsLabel: UILabel = {
         let label = UILabel()
-        label.font = .systemFont(ofSize: 14, weight: .bold)
+        label.font = Static.Font.subtitleInfoFont
         label.textColor = .labelSecondaryColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
-    func configure(with model : Region){
+    func configure(with model : Region) {
         title.text = model.title
         viewsLabel.text = "\(model.viewsCount)"
     }
@@ -57,14 +57,14 @@ class InfoView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupConstraints(){
+    private func setupConstraints() {
         NSLayoutConstraint.activate([
-            title.topAnchor.constraint(equalTo: topAnchor,constant: 0),
-            title.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 0),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor,constant: 0),
+            title.topAnchor.constraint(equalTo: topAnchor),
+            title.leadingAnchor.constraint(equalTo: leadingAnchor),
+            title.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            image.topAnchor.constraint(equalTo: title.bottomAnchor,constant: 10),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 0),
+            image.topAnchor.constraint(equalTo: title.bottomAnchor,constant: Static.Layout.sidePadding),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             viewsLabel.centerYAnchor.constraint(equalTo: image.centerYAnchor),
             viewsLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor,constant: 2)
