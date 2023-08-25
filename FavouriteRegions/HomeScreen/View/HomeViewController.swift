@@ -150,9 +150,6 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
 }
 
-protocol UpdateDelegate: AnyObject{
-    func didUpdateFavourite(_ region: Region)
-}
 extension HomeViewController : UpdateDelegate{
     func didUpdateFavourite(_ region: Region) {
         viewModel.update( region)
