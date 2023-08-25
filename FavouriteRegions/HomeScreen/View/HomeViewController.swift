@@ -28,6 +28,11 @@ class HomeViewController: UIViewController {
         fetchData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tableView.reloadData()
+    }
+    
 }
 
 // MARK: Setup views
@@ -164,6 +169,5 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
 extension HomeViewController : UpdateDelegate{
     func didUpdateFavourite(_ region: Region) {
         viewModel.update( region)
-        tableView.reloadData()
     }
 }
