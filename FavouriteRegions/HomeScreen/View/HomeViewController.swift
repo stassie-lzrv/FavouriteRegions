@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
 private extension HomeViewController {
     
     func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .backPrimaryColor
         title = "Любимые регионы"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
@@ -46,6 +46,7 @@ private extension HomeViewController {
     func setupTableView() {
         view.addSubview(tableView)
         tableView.addSubview(activityIndicator)
+        tableView.backgroundColor = .clear
         tableView.delegate = self
         tableView.dataSource = self
         tableView.register(RegionCell.self, forCellReuseIdentifier: RegionCell.identifier)
@@ -146,6 +147,16 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 200
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let rotationTransform = CATransform3DTranslate(CATransform3DIdentity, 0, 50, 0)
+        cell.layer.transform = rotationTransform
+        cell.alpha = 0
+        UIView.animate(withDuration: 0.75) {
+            cell.layer.transform = CATransform3DIdentity
+            cell.alpha = 1.0
+        }
     }
     
 }

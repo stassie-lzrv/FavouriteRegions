@@ -28,6 +28,7 @@
 		81B94C622A98086F007B49DA /* DetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B94C612A98086F007B49DA /* DetailViewModel.swift */; };
 		81B94C652A9818F0007B49DA /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B94C642A9818F0007B49DA /* InfoView.swift */; };
 		81B94C682A983C5D007B49DA /* UpdateDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B94C672A983C5D007B49DA /* UpdateDelegate.swift */; };
+		81B94C6B2A98463A007B49DA /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81B94C6A2A98463A007B49DA /* UIColor+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +54,7 @@
 		81B94C612A98086F007B49DA /* DetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewModel.swift; sourceTree = "<group>"; };
 		81B94C642A9818F0007B49DA /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		81B94C672A983C5D007B49DA /* UpdateDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateDelegate.swift; sourceTree = "<group>"; };
+		81B94C6A2A98463A007B49DA /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -156,10 +158,10 @@
 				81B94C692A983C79007B49DA /* Binding */,
 				812990402A97DABF003AAF77 /* DetailScreen */,
 				8129903F2A97DAA4003AAF77 /* HomeScreen */,
-				813EB5AE2A97A54E006BEEFD /* Networking */,
 				813EB5A02A96A255006BEEFD /* Models */,
-				81A3D3F52A969AB3001E6C17 /* Assets.xcassets */,
+				813EB5AE2A97A54E006BEEFD /* Networking */,
 				81A3D3F72A969AB3001E6C17 /* LaunchScreen.storyboard */,
+				81A3D3F52A969AB3001E6C17 /* Assets.xcassets */,
 				81A3D3FA2A969AB3001E6C17 /* Info.plist */,
 			);
 			path = FavouriteRegions;
@@ -178,6 +180,7 @@
 			children = (
 				81A3D3EC2A969AAE001E6C17 /* AppDelegate.swift */,
 				81A3D3EE2A969AAE001E6C17 /* SceneDelegate.swift */,
+				81B94C6A2A98463A007B49DA /* UIColor+.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				812990432A97DBF9003AAF77 /* DetailViewController.swift in Sources */,
+				81B94C6B2A98463A007B49DA /* UIColor+.swift in Sources */,
 				812990472A97ECFF003AAF77 /* GalleryCollectionViewCell.swift in Sources */,
 				813EB5B02A97A575006BEEFD /* NetworkService.swift in Sources */,
 				813EB5A92A976BA2006BEEFD /* RegionCellView.swift in Sources */,

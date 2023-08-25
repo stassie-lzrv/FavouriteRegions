@@ -13,8 +13,8 @@ class InfoView: UIView {
     private let title: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 26, weight: .bold)
-        label.textColor = .black
-        label.numberOfLines = 2
+        label.textColor = .labelPrimaryColor
+        label.numberOfLines = 3
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -26,14 +26,14 @@ class InfoView: UIView {
         let config = UIImage.SymbolConfiguration(textStyle: .subheadline)
         let eyeImage = UIImage(systemName: "eye", withConfiguration: config)
         imageView.image = eyeImage
-        imageView.tintColor = .gray
+        imageView.tintColor = .supportGrayColor
         return imageView
     }()
     
     private let viewsLabel: UILabel = {
         let label = UILabel()
         label.font = .systemFont(ofSize: 14, weight: .bold)
-        label.textColor = .gray
+        label.textColor = .labelSecondaryColor
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +45,7 @@ class InfoView: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
-        backgroundColor = .white
+        backgroundColor = .backPrimaryColor
         translatesAutoresizingMaskIntoConstraints = false
         addSubview(title)
         addSubview(image)

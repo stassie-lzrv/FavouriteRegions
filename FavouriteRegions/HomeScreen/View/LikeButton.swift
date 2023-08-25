@@ -19,7 +19,7 @@ class LikeButton: UIButton {
         let likeImage = UIImage(systemName: "suit.heart.fill", withConfiguration: config)
         setImage(likeImage, for: .normal)
         contentMode = .scaleAspectFill
-        tintColor = (region.isFavourite ? .red : .lightGray)
+        tintColor = (region.isFavourite ? .redColor : .supportGrayColor)
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(toggleState), for: .touchUpInside)
     }
@@ -30,7 +30,7 @@ class LikeButton: UIButton {
     
     @objc
     func toggleState(sender: UIButton){
-        sender.tintColor = (sender.tintColor == .lightGray ? .red : .lightGray)
+        sender.tintColor = (sender.tintColor == .supportGrayColor ? .red : .supportGrayColor)
         region.isFavourite.toggle()
         delegate?.didUpdateFavourite(region)
     }
