@@ -30,7 +30,9 @@ class LikeButton: UIButton {
     
     @objc
     func toggleState(sender: UIButton){
-        sender.tintColor = (sender.tintColor == .supportGrayColor ? .red : .supportGrayColor)
+        UIView.animate(withDuration: 0.2){
+            sender.tintColor = (sender.tintColor == .supportGrayColor ? .red : .supportGrayColor)
+        }
         region.isFavourite.toggle()
         delegate?.didUpdateFavourite(region)
     }

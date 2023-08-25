@@ -67,7 +67,7 @@ class InfoView: UIView {
             image.leadingAnchor.constraint(equalTo: leadingAnchor,constant: 0),
             
             viewsLabel.centerYAnchor.constraint(equalTo: image.centerYAnchor),
-            viewsLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor,constant: 0)
+            viewsLabel.leadingAnchor.constraint(equalTo: image.trailingAnchor,constant: 2)
         ])
     }
 }
