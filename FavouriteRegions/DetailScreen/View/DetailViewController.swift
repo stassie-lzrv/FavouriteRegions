@@ -14,7 +14,9 @@ class DetailViewController: UIViewController {
     private let contentView = UIView()
     private let collectionView = GalleryCollectionView()
     private let infoView = InfoView()
+    private let likeButton : LikeButton
     
+    weak var delegate: UpdateDelegate?
     private let viewModel : DetailViewModel
     
     // MARK: UI overriding
@@ -28,6 +30,7 @@ class DetailViewController: UIViewController {
     
     init(viewModel: DetailViewModel) {
         self.viewModel = viewModel
+        self.likeButton = LikeButton(region: viewModel.region)
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -36,7 +39,7 @@ class DetailViewController: UIViewController {
     }
     
     func bindViewModel(){
-        // TODO: like binding
+        likeButton.delegate = delegate
     }
 }
 
@@ -44,16 +47,14 @@ class DetailViewController: UIViewController {
 
 private extension DetailViewController {
     
-    
-    
     func setupView() {
         view.backgroundColor = .white
         setupBackground()
         setupBackButton()
         setupInfoView()
+        setupLikeButton()
         setupCollectionView()
         setupConstraints()
-        
     }
     
     func setupBackButton(){
@@ -65,8 +66,8 @@ private extension DetailViewController {
         )
         backButton.tintColor = .black
         navigationItem.leftBarButtonItem = backButton
-        
     }
+    
     func setupBackground(){
         view.addSubview(contentView)
         contentView.translatesAutoresizingMaskIntoConstraints = false
@@ -83,6 +84,11 @@ private extension DetailViewController {
         view.addSubview(infoView)
     }
     
+    func setupLikeButton(){
+        view.addSubview(likeButton)
+        likeButton.backgroundColor = .clear
+    }
+    
     func setupConstraints() {
         NSLayoutConstraint.activate([
             contentView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -92,11 +98,16 @@ private extension DetailViewController {
             
             collectionView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
             collectionView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
-            collectionView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            collectionView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0),
             collectionView.heightAnchor.constraint(equalToConstant: 300),
             
+            likeButton.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
+            likeButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            likeButton.widthAnchor.constraint(equalToConstant: 40),
+            likeButton.heightAnchor.constraint(equalToConstant: 30),
+            
             infoView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
-            infoView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
+            infoView.trailingAnchor.constraint(equalTo: likeButton.leadingAnchor, constant: -10),
             infoView.topAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: 30),
             infoView.heightAnchor.constraint(equalToConstant: 50)
         ])

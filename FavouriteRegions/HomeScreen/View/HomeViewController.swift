@@ -39,7 +39,6 @@ private extension HomeViewController {
         title = "Любимые регионы"
         navigationController?.navigationBar.prefersLargeTitles = true
         navigationItem.largeTitleDisplayMode = .always
-        
         setupTableView()
         setupConstraints()
     }
@@ -107,6 +106,7 @@ private extension HomeViewController{
     
     private func openDetailViewController(_ region: Region){
         let detailVC = DetailViewController(viewModel: DetailViewModel(region: region))
+        detailVC.delegate = self
         self.navigationController?.pushViewController(detailVC, animated: true)
     }
 }
@@ -134,14 +134,13 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: RegionCell.identifier, for: indexPath) as? RegionCell else { return UITableViewCell() }
-        cell.configure(with:  viewModel.regions[indexPath.section], indexPath: indexPath)
+        cell.configure(with:  viewModel.regions[indexPath.section], delegate: self)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let region = viewModel.regions[indexPath.section]
-        
         openDetailViewController(region)
     }
     
@@ -149,4 +148,14 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
         return 200
     }
     
+}
+
+protocol UpdateDelegate: AnyObject{
+    func didUpdateFavourite(_ region: Region)
+}
+extension HomeViewController : UpdateDelegate{
+    func didUpdateFavourite(_ region: Region) {
+        viewModel.update( region)
+        tableView.reloadData()
+    }
 }

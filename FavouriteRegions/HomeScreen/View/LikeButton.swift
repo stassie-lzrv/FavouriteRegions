@@ -8,15 +8,18 @@
 import Foundation
 import UIKit
 
-final class LikeButton: UIButton {
+class LikeButton: UIButton {
+    weak var delegate : UpdateDelegate?
+    private var region: Region
     
-    init() {
+    init(region: Region) {
+        self.region = region
         super.init(frame: .zero)
         let config = UIImage.SymbolConfiguration(textStyle: .title2)
         let likeImage = UIImage(systemName: "suit.heart.fill", withConfiguration: config)
         setImage(likeImage, for: .normal)
         contentMode = .scaleAspectFill
-        tintColor = .white
+        tintColor = (region.isFavourite ? .red : .lightGray)
         translatesAutoresizingMaskIntoConstraints = false
         addTarget(self, action: #selector(toggleState), for: .touchUpInside)
     }
@@ -27,6 +30,8 @@ final class LikeButton: UIButton {
     
     @objc
     func toggleState(sender: UIButton){
-        sender.tintColor = (sender.tintColor == .white ? .red : .white)
+        sender.tintColor = (sender.tintColor == .lightGray ? .red : .lightGray)
+        region.isFavourite.toggle()
+        delegate?.didUpdateFavourite(region)
     }
 }

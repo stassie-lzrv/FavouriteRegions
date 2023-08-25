@@ -17,6 +17,12 @@ class HomeViewModel {
         return regions.count
     }
     
+    func update(_ region: Region){
+        if let ind =  regions.firstIndex(where: {$0.brandId == region.brandId}){
+            regions[ind] = region
+        }
+    }
+    
     func fetchRegions(_ completion: @escaping ([Region]) -> Void) {
         isLoading = true
         _ = Task {

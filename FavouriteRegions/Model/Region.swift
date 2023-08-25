@@ -11,7 +11,9 @@ struct Region {
     let title: String
     let thumbUrls: [String]
     let viewsCount: Int
-    var isFavourite: Bool = false
+    var isFavourite: Bool = false 
+    
+    
 }
 
 extension Region {

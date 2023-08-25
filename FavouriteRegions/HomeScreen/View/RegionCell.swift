@@ -9,22 +9,26 @@ import Foundation
 import UIKit
 
 class RegionCell: UITableViewCell {
+    
     static let identifier = "regionCell"
     
     private let regionCellView = RegionCellView()
     
-    private let likeButton = LikeButton()
+    private var likeButton : LikeButton?
     
-    func configure(with model: Region, indexPath : IndexPath){
+    func configure(with model : Region, delegate : UpdateDelegate){
+        likeButton = LikeButton(region: model)
+        guard let likeButton = likeButton else {return}
         backgroundColor = .clear
         contentView.addSubview(regionCellView)
         contentView.addSubview(likeButton)
         regionCellView.configure(with: model)
-        likeButton.tag = indexPath.section
+        likeButton.delegate = delegate
         setupConstraints()
     }
     
     private func setupConstraints(){
+        guard let likeButton = likeButton else {return}
         NSLayoutConstraint.activate([
             regionCellView.topAnchor.constraint(equalTo: topAnchor, constant: 0),
             regionCellView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0),

@@ -8,12 +8,9 @@
 import Foundation
 
 class DetailViewModel {
-    @Observable var region: Region
+    @Observable var region: Region 
     
     init(region: Region) {
         self.region = region
-    }
-    private func toggleLike(){
-        region.isFavourite = !region.isFavourite
     }
 }
